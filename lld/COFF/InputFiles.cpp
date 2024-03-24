@@ -212,7 +212,7 @@ SectionChunk *ObjFile::readSection(uint32_t sectionNumber,
   if (name == ".drectve") {
     ArrayRef<uint8_t> data;
     cantFail(coffObj->getSectionContents(sec, data));
-    directives = StringRef((const char *)data.data(), data.size());
+    directives.push_back(StringRef((const char*)data.data(), data.size()));
     return nullptr;
   }
 
@@ -1086,7 +1086,7 @@ void BitcodeFile::parse() {
     if (objSym.isUsed())
       ctx.config.gcroot.push_back(sym);
   }
-  directives = saver.save(obj->getCOFFLinkerOpts());
+  directives.push_back(saver.save(obj->getCOFFLinkerOpts()));
 }
 
 void BitcodeFile::parseLazy() {

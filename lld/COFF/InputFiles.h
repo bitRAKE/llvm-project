@@ -90,7 +90,7 @@ public:
   StringRef parentName;
 
   // Returns .drectve section contents if exist.
-  StringRef getDirectives() { return directives; }
+  std::vector<StringRef> getDirectives() { return directives; }
 
   COFFLinkerContext &ctx;
 
@@ -98,7 +98,7 @@ protected:
   InputFile(COFFLinkerContext &c, Kind k, MemoryBufferRef m, bool lazy = false)
       : mb(m), ctx(c), fileKind(k), lazy(lazy) {}
 
-  StringRef directives;
+  std::vector<StringRef> directives;
 
 private:
   const Kind fileKind;
